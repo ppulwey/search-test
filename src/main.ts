@@ -53,9 +53,8 @@ const searchStore: ISearchStore = {
   filterTerms(e: Event) {
     this.searchTerm = (e.target as HTMLInputElement).value.trim();
 
-    
     if (this.searchTerm === "") {
-      this.log('Clearing search');
+      this.log("Clearing search");
       this.showFrequentSearches = true;
       this.showSuggestions = false;
       return;
@@ -74,6 +73,13 @@ const searchStore: ISearchStore = {
         term.toLowerCase().includes(this.searchTerm.toLowerCase())
       )
       .slice(0, 5);
+
+    this.filterSuggestions = this.filterSuggestions.map((item) => {
+      const re = new RegExp(this.searchTerm, "gi");
+      const foundTerm = item.match(re);
+
+      return item.replace(re, `<mark>${foundTerm}</mark>`);
+    });
 
     this.showFrequentSearches = false;
     this.showSuggestions = true;

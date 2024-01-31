@@ -40,6 +40,11 @@ input[type="search"] {
   justify-content: end;
 }
 
+mark {
+  color: #1eee29;
+  background-color: transparent;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
