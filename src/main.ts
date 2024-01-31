@@ -53,13 +53,15 @@ const searchStore: ISearchStore = {
   filterTerms(e: Event) {
     this.searchTerm = (e.target as HTMLInputElement).value.trim();
 
-    this.log(`Searching for ${this.searchTerm}`);
-
+    
     if (this.searchTerm === "") {
+      this.log('Clearing search');
       this.showFrequentSearches = true;
       this.showSuggestions = false;
       return;
     }
+
+    this.log(`Searching for ${this.searchTerm}`);
 
     if (this.searchTerm.length < 3) {
       this.showFrequentSearches = false;
