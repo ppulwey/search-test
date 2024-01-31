@@ -27,7 +27,7 @@ interface ISearchStore {
 const searchStore: ISearchStore = {
   async init() {
     this.log("Initializing...");
-    const response = await fetch(`${apiUrl}/meta`);
+    const response = await fetch(`${apiUrl}/terms`);
     const searchTermResult = (await response.json()) as ISuggest;
 
     const { frequentSearches, suggestions } = searchTermResult;
