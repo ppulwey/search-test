@@ -1,5 +1,5 @@
+import Alpine from "alpinejs";
 import "./style.css";
-import Alpine, { Stores } from "alpinejs";
 
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
