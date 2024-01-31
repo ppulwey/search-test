@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <script type="module" src="/src/main.ts"></script>
+    <h1>Search Sample</h1>
+
+    <input
+      x-data
+      x-model="$store.search.searchTerm"
+      x-ref="searchfield"
+      @input="$store.search.filterTerms(event)"
+      @focus="$store.search.focusSearchField()"
+      @blur="$store.search.unfocusSearchField()"
+      id="search-field"
+      type="search"
+      placeholder="Type to start sarching..."
+      incremental
+    />
+    <div x-data x-show="$store.search.showSuggestions">
+      <b>Suggestions</b>
+      <ul>
+        <template x-data x-for="suggestion in $store.search.filterSuggestions">
+          <li x-text="suggestion"></li>
+        </template>
+      </ul>
+    </div>
+    <div x-data x-show="$store.search.showFrequentSearches">
+      <b>Frequest Searches</b>
+      <ul>
+        <template x-data x-for="item in $store.search.frequentSearches">
+          <li x-text="item"></li>
+        </template>
+      </ul>
+    </div>
+    <div class="searchLog">
+      <b>Log</b>
+      <textarea
+        x-data
+        cols="60"
+        rows="10"
+        x-text="$store.search.logs"
+      ></textarea>
+    </div>
+  </body>
+</html>
