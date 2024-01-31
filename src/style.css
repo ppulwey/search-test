@@ -33,10 +33,11 @@ input[type="search"] {
   padding: 0.5rem;
 }
 
-.searchLog{
+.searchLog {
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
+  flex: 1 1 auto;
+  justify-content: end;
 }
 
 /* @media (prefers-color-scheme: light) {
