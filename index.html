@@ -22,7 +22,7 @@
       placeholder="Type to start sarching..."
       incremental
     />
-    <div x-data x-show="$store.search.showSuggestions">
+    <div class="suggestions" x-data x-show="$store.search.showSuggestions">
       <b>Suggestions</b>
       <ul>
         <template x-data x-for="suggestion in $store.search.filterSuggestions">
@@ -30,7 +30,7 @@
         </template>
       </ul>
     </div>
-    <div x-data x-show="$store.search.showFrequentSearches">
+    <div class="suggestions" x-data x-show="$store.search.showFrequentSearches">
       <b>Frequest Searches</b>
       <ul>
         <template x-data x-for="item in $store.search.frequentSearches">

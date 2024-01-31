@@ -40,8 +40,12 @@ input[type="search"] {
   justify-content: end;
 }
 
+.suggestions{
+  margin-top: 1rem;
+}
+
 mark {
-  color: #1eee29;
+  color: #1eeec1;
   background-color: transparent;
 }
 
