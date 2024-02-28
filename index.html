@@ -10,42 +10,52 @@
     <script type="module" src="/src/main.ts"></script>
     <h1>Search Sample</h1>
 
-    <input
-      x-data
-      x-model="$store.search.searchTerm"
-      x-ref="searchfield"
-      @input="$store.search.filterTerms(event)"
-      @focus="$store.search.focusSearchField()"
-      @blur="$store.search.unfocusSearchField()"
-      id="search-field"
-      type="search"
-      placeholder="Type to start sarching..."
-      incremental
-    />
-    <div class="suggestions" x-data x-show="$store.search.showSuggestions">
-      <b>Suggestions</b>
-      <ul>
-        <template x-data x-for="suggestion in $store.search.filterSuggestions">
-          <li x-html="suggestion"></li>
-        </template>
-      </ul>
-    </div>
-    <div class="suggestions" x-data x-show="$store.search.showFrequentSearches">
-      <b>Frequest Searches</b>
-      <ul>
-        <template x-data x-for="item in $store.search.frequentSearches">
-          <li x-text="item"></li>
-        </template>
-      </ul>
-    </div>
-    <div class="searchLog">
-      <b>Log</b>
-      <textarea
-        x-data
-        cols="60"
-        rows="10"
-        x-text="$store.search.logs"
-      ></textarea>
+    <div x-data="search" class="search__wrapContainer">
+      <div @keyup.escape="toggleSearchInput()" x-trap="showSearchInput">
+        <button
+          x-show="!showSearchInput"
+          class="btn__search"
+          @click="toggleSearchInput()"
+        >
+          Search
+        </button>
+        <div class="search__inputContainer" x-show="showSearchInput">
+          <input
+            x-model="searchTerm"
+            x-ref="searchfield"
+            @input="filterTerms(event)"
+            @focus="focusSearchField()"
+            @blur="unfocusSearchField()"
+            id="search-field"
+            type="search"
+            placeholder="Type to search..."
+          />
+          <button class="btn__close" @click="toggleSearchInput()">
+            <i class="icon--close"></i>
+          </button>
+        </div>
+      </div>
+      <div class="suggestions" x-show="showSuggestions">
+        <b>Suggestions</b>
+        <ul>
+          <template x-for="suggestion in filterSuggestions">
+            <li x-html="suggestion"></li>
+          </template>
+        </ul>
+      </div>
+      <div class="suggestions" x-show="showFrequentSearches">
+        <b>Frequest Searches</b>
+        <ul>
+          <template x-for="item in frequentSearches">
+            <li x-text="item"></li>
+          </template>
+        </ul>
+      </div>
+
+      <div class="searchLog">
+        <b>Log</b>
+        <textarea cols="60" rows="10" x-text="logs" readonly></textarea>
+      </div>
     </div>
   </body>
 </html>

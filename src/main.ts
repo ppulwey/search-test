@@ -1,4 +1,7 @@
 import Alpine from "alpinejs";
+import focus from "@alpinejs/focus";
+
+Alpine.plugin(focus);
 import "./style.css";
 
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -17,14 +20,18 @@ interface ISearchStore {
   frequentSearches: string[];
   showFrequentSearches: boolean;
   showSuggestions: boolean;
+  showSearchInput: boolean;
   log: (message: string) => void;
   init: () => void;
   filterTerms(e: Event): void;
   focusSearchField(): void;
   unfocusSearchField(): void;
+  toggleSearchInput(): void;
+  $refs: { [key: string]: any };
+  $nextTick: (cb: any) => void;
 }
 
-const searchStore: ISearchStore = {
+const searchStore = (): ISearchStore => ({
   async init() {
     this.log("Initializing...");
     const response = await fetch(`${apiUrl}/terms`);
@@ -37,14 +44,30 @@ const searchStore: ISearchStore = {
 
     this.log(`Search terms loaded`);
   },
+  $refs: { searchfield: null },
+  $nextTick: (cb: any) => {
+    cb();
+  },
   focused: false,
   showFrequentSearches: false,
   showSuggestions: false,
+  showSearchInput: false,
   searchTerm: "",
   suggestions: [],
   filterSuggestions: [],
   frequentSearches: [],
   logs: "",
+  toggleSearchInput() {
+    this.searchTerm = "";
+    this.showSearchInput = !this.showSearchInput;
+
+    if (this.showSearchInput) {
+      console.log("focus search field");
+      this.$nextTick(() => {
+        this.$refs.searchfield.focus();
+      });
+    }
+  },
   log(message) {
     this.logs = `[${new Date().toLocaleTimeString()}] - ${message}\n${
       this.logs
@@ -99,10 +122,10 @@ const searchStore: ISearchStore = {
     this.showFrequentSearches = false;
     this.showSuggestions = false;
   },
-};
+});
 
 window.Alpine = Alpine;
 
-Alpine.store("search", searchStore);
+Alpine.data("search", searchStore);
 
 Alpine.start();
