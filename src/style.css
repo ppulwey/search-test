@@ -53,7 +53,7 @@ button {
   color: var(--white);
   padding: 8px 16px;
   border-radius: 4px;
-  background-image: url("./magnifier.svg");
+  background-image: url("./assets/magnifier.svg");
   background-repeat: no-repeat;
   background-position: 8px;
   padding-left: 32px;
@@ -67,7 +67,7 @@ button {
 }
 
 i.icon--close {
-  mask-image: url("./close.svg");
+  mask-image: url("./assets/close.svg");
   mask-repeat: no-repeat;
   mask-size: cover;
   mask-position: center;
